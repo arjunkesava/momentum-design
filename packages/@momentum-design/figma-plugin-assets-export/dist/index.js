@@ -1911,7 +1911,7 @@
 
   // src/shared/export-constants.ts
   var DEFAULTS = {
-    CHUNK_SIZE: 250
+    CHUNK_SIZE: 50
   };
 
   // src/plugin/models/document.ts
