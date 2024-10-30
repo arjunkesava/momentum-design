@@ -19,34 +19,43 @@ import styles from './badge.styles';
 class Badge extends Component {
   /**
    * Type of the badge
-   * Can be `dot` (notification) , `icon` and `counter`
-   *
-   * Default: `dot`
+   * Can be `dot` (notification) , `icon`, `counter`, `success`, `warning` or `error`.
    */
   @property({ type: String, reflect: true })
   type = DEFAULTS.TYPE;
 
   /**
-   * If `type` is set to `icon`, attribute `iconName` can
-   * be used to choose which icon should be shown
+   * Name of the icon (= filename).
    *
-   * If no `iconName` is provided, no icon will be rendered.
+   * If no `icon-name` is provided, no icon will be rendered.
    */
   @property({ type: String, attribute: 'icon-name' })
   iconName?: string;
 
   /**
-   * badge variant
+   * Type of the variant can be `primary` or `secondary`.
+   * It defines the background color of the icon.
    */
   @property({ type: String })
   variant = DEFAULTS.VARIANT;
 
+  /**
+   * Counter is the number which can be provided in the badge.
+   */
   @property({ type: Number })
   counter?: number;
 
+  /**
+   * The maximum number can be set up to 999, anything about that will be rendered as _999+_.
+   * The max counter can be `9`, `99` or `999`.
+   */
   @property({ type: Number, attribute: 'max-counter' })
   maxCounter: number = DEFAULTS.MAX_COUNTER;
 
+  /**
+   * Overlay is to add a thin outline to the badge.
+   * This will help distinguish between the badge inside a button.
+   */
   @property({ type: Boolean })
   overlay = false;
 
