@@ -7,10 +7,23 @@ import { BADGE_TYPE, ICON_NAMES_LIST, DEFAULTS, ICON_VARIANT, ICON_STATE } from 
 import styles from './badge.styles';
 
 /**
- * A badge is a small, visually distinct element that provides additional information
- * or highlights the status of an item.
- * Badges are often used to display notification dot, counts, making them a useful tool for
- * conveying information quickly without taking up much space.
+ *
+ * The `mdc-badge` component is a versatile UI element used to
+ * display dot, icons, counters, success, warning and error type badge.
+ *
+ * Supported badge types:
+ * - `dot`: Displays a dot notification badge with a blue color.
+ * - `icon`: Displays a badge with a specified icon using the `icon-name` attribute.
+ * - `counter`: Displays a badge with a counter value. If the counter exceeds the `max-counter`,
+ * it shows `maxCounter+`. The maximum value of the counter is 999 and anything about that will be set to `999+`.
+ * - `success`: Displays a success badge with a check circle icon and green color.
+ * - `warning`: Displays a warning badge with a warning icon and yellow color.
+ * - `error`: Displays a error badge with a error legacy icon and red color.
+ *
+ * For `icon`, `success`, `warning` and `error` types, the `mdc-icon` component is used to render the icon.
+ *
+ * For the `counter` type, the `mdc-text` component is used to render the counter value.
+ *
  * @dependency mdc-icon
  * @dependency mdc-text
  *
