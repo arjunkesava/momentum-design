@@ -76,39 +76,27 @@ export const Default: StoryObj = {
 };
 
 export const PrefixIcon: StoryObj = {
-  args: {
-    children: html`<mdc-icon name="info-circle-bold" slot="prefix-icon"></mdc-icon>
-      <p slot="label-text">Left Icon</p>`,
-    active: false,
-    disabled: false,
-    'soft-disabled': false,
-    variant: BUTTON_VARIANTS.PRIMARY,
-    size: ICON_BUTTON_SIZES[32],
-    color: BUTTON_COLORS.ACTIVE,
-  },
+  render: () => html`
+    <mdc-button>
+      <mdc-icon slot="prefix-icon"  name="info-circle-bold"></mdc-icon>
+      <img slot="label-text" src="https://placehold.co/150" alt="img" />
+    </mdc-button>
+  `,
 };
 
 export const PostfixIcon: StoryObj = {
-  args: {
-    children: html`<p slot="label-text">Right Icon</p>
-      <mdc-icon name="info-circle-bold" slot="postfix-icon"></mdc-icon>`,
-    active: false,
-    disabled: false,
-    'soft-disabled': false,
-    variant: BUTTON_VARIANTS.PRIMARY,
-    size: ICON_BUTTON_SIZES[32],
-    color: BUTTON_COLORS.ACTIVE,
-  },
+  render: () => html`
+    <mdc-button>
+      <mdc-icon slot="postfix-icon"  name="info-circle-bold"></mdc-icon>
+      <span slot="label-text">Supriya</span>
+    </mdc-button>
+  `,
 };
 
 export const Icon: StoryObj = {
-  args: {
-    children: html`<mdc-icon name="info-circle-bold"></mdc-icon>`,
-    active: false,
-    disabled: false,
-    'soft-disabled': false,
-    variant: BUTTON_VARIANTS.PRIMARY,
-    size: ICON_BUTTON_SIZES[32],
-    color: BUTTON_COLORS.ACTIVE,
-  },
+  render: () => html`
+    <mdc-button>
+      <mdc-icon name="info-circle-bold"></mdc-icon>
+    </mdc-button>
+  `,
 };

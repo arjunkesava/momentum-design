@@ -248,12 +248,83 @@ class Button extends Component {
     }
   }
 
+  private checkPrefixIconSlot(node: Array<Node>): boolean {
+    if (
+      node[0] instanceof HTMLElement && node[1] instanceof HTMLElement
+      && node[0].nodeName === 'MDC-ICON' && node[1].nodeName === 'SPAN'
+      && node[0].slot === 'prefix-icon' && node[1].slot === 'label-text'
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  private checkPostfixIconSlot(node: Array<Node>): boolean {
+    if (
+      node[0] instanceof HTMLElement && node[1] instanceof HTMLElement
+      && node[0].nodeName === 'SPAN' && node[1].nodeName === 'MDC-ICON'
+      && node[0].slot === 'label-text' && node[1].slot === 'prefix-icon'
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  private checkLabelTextSlot(node: Array<Node>): boolean {
+    if (
+      node[0] instanceof HTMLElement
+      && node[0].nodeName === 'SPAN'
+      && node[0].slot === 'label-text'
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  private assignSlotBasedOnChild(node: Array<Node>) {
+    if (node.length === 1 && node[0] instanceof HTMLElement && node[0].nodeName === 'SPAN') {
+      node[0].setAttribute('slot', 'label-text');
+    } else if (
+      node[0] instanceof HTMLElement && node[1] instanceof HTMLElement
+    ) {
+      if (node[0].nodeName === 'MDC-ICON' && node[1].nodeName === 'SPAN') {
+        node[0].setAttribute('slot', 'prefix-icon');
+        node[1].setAttribute('slot', 'label-text');
+      } else if (node[0].nodeName === 'SPAN' && node[1].nodeName === 'MDC-ICON') {
+        node[0].setAttribute('slot', 'label-text');
+        node[1].setAttribute('slot', 'postfix-icon');
+      }
+    }
+    return node;
+  }
+
   public override render() {
-    return html`
-      <slot name="prefix-icon"></slot>
-      <slot></slot>
-      <slot name="postfix-icon"></slot>
-    `;
+    const filteredNodes = Array.from(this.childNodes).filter((node) => node.nodeType === Node.ELEMENT_NODE);
+    const validNodes = filteredNodes.filter((node) => ['SPAN', 'MDC-ICON'].includes(node.nodeName));
+    console.log(validNodes);
+    console.log(`checkPrefixIconSlot => ${this.checkPrefixIconSlot(validNodes)}`);
+    console.log(`checkPostfixIconSlot => ${this.checkPostfixIconSlot(validNodes)}`);
+    console.log(`checkLabelTextSlot => ${this.checkLabelTextSlot(validNodes)}`);
+
+    if (validNodes.length === 0) {
+      return html``;
+    }
+
+    if ([
+      this.checkPrefixIconSlot(validNodes),
+      this.checkPostfixIconSlot(validNodes),
+      this.checkLabelTextSlot(validNodes),
+    ].some((isValid) => !!isValid)) {
+      return validNodes;
+    }
+
+    return this.assignSlotBasedOnChild(validNodes);
+
+    // return html`
+    //   <slot name="prefix">${validNodes[1].outerHTML}</slot>
+    //   <slot name="label-text"></slot>
+    //   <slot name="postfix"></slot>
+    // `;
   }
 
   public static override styles: Array<CSSResult> = [...Component.styles, ...styles];
