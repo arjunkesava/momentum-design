@@ -59,25 +59,11 @@ const meta: Meta = {
 
 export default meta;
 
-export const Image: StoryObj = {
-  argTypes: {
-    ...disableControls([
-      'counter',
-      'icon-name',
-    ]),
-  },
-  args: {
-    size: PRESENCE_SIZE.X_LARGE,
-    src: 'https://picsum.photos/id/63/256',
-    initials: 'AK',
-    'icon-name': 'placeholder-bold',
-  },
-};
-
 export const Example: StoryObj = {
   args: {
-    src: '',
+    src: 'https://picsum.photos/id/63/256',
     initials: 'MD',
+    size: 'x_large',
     counter: '',
     'icon-name': '',
     'is-typing': '',
