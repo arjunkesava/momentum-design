@@ -13,6 +13,7 @@ import Modalcontainer from './components/modalcontainer';
 import Buttonsimple from './components/buttonsimple';
 import Avatarbutton from './components/avatarbutton';
 import Link from './components/link';
+import Checkbox from './components/checkbox';
 
 import type { TextType } from './components/text/text.types';
 
@@ -32,6 +33,7 @@ export {
   Buttonsimple,
   Avatarbutton,
   Link,
+  Checkbox,
 };
 
 export type {
