@@ -11,6 +11,7 @@ import Marker from './components/marker';
 import Divider from './components/divider';
 import Avatarbutton from './components/avatarbutton';
 import Link from './components/link';
+import Radio from './components/radio';
 
 import type { TextType } from './components/text/text.types';
 
@@ -28,6 +29,7 @@ export {
   Divider,
   Avatarbutton,
   Link,
+  Radio,
 };
 
 export type {
