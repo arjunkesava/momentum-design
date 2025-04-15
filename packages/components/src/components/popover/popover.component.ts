@@ -1,7 +1,7 @@
 import { CSSResult, html, nothing, PropertyValues } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { property } from 'lit/decorators.js';
-import { computePosition, autoUpdate, offset, flip, shift, arrow, size } from '@floating-ui/dom';
+import { computePosition, autoUpdate, offset, flip, shift, arrow, size, detectOverflow } from '@floating-ui/dom';
 import styles from './popover.styles';
 import { Component } from '../../models';
 import { FocusTrapMixin } from '../../utils/mixins/FocusTrapMixin';
@@ -613,7 +613,10 @@ class Popover extends FocusTrapMixin(Component) {
     let popoverOffset = this.offset;
 
     if (this.flip) {
-      middleware.push(flip());
+      middleware.push(flip({
+        boundary: 'clippingAncestors',
+        padding: 8,
+      }));
     }
 
     if (this.size) {
@@ -648,7 +651,31 @@ class Popover extends FocusTrapMixin(Component) {
 
       const { x, y, middlewareData, placement } = await computePosition(this.triggerElement, this, {
         placement: this.placement,
-        middleware,
+        middleware: [
+          ...middleware,
+          {
+            name: 'escapeParentBounds',
+            async fn(state) {
+              // Skip overflow detection for nested popovers
+              const topPopover = popoverStack.peek();
+              if (topPopover && topPopover !== this) {
+                return {
+                  data: { overflow: { top: 0, bottom: 0, left: 0, right: 0 } },
+                  reset: { rects: true }
+                };
+              }
+              
+              const overflow = await detectOverflow(state, {
+                boundary: 'clippingAncestors',
+                elementContext: 'reference',
+              });
+              return {
+                data: { overflow },
+                reset: { rects: true }
+              };
+            },
+          },
+        ],
       });
 
       this.utils.updatePopoverStyle(x, y);

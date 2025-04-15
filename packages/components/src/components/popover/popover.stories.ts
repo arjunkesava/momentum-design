@@ -4,6 +4,8 @@ import { html, TemplateResult } from 'lit';
 import { action } from '@storybook/addon-actions';
 import { POPOVER_PLACEMENT, DEFAULTS, COLOR } from './popover.constants';
 import { disableControls, hideControls } from '../../../config/storybook/utils';
+import '../select';
+import '../option';
 
 const createPopover = (args: Args, content: TemplateResult) => html`
   <mdc-popover
@@ -441,4 +443,26 @@ export const popoverWithBackdrop: StoryObj = {
     role: DEFAULTS.ROLE,
     color: DEFAULTS.COLOR,
   },
+};
+
+export const popoverWithSelect: StoryObj = {
+  render: () => html`
+    <div style="margin: 10rem; width: 8rem;">
+      <mdc-button id="button-id">Click me</mdc-button>
+      <mdc-popover triggerID="button-id">
+        <div style="width: 10rem;">
+        <mdc-select>
+          <mdc-option>Option 1</mdc-option>
+          <mdc-option>Option 2</mdc-option>
+          <mdc-option>Option 3</mdc-option>
+        </mdc-select>
+        <mdc-select>
+          <mdc-option>Option 4</mdc-option>
+          <mdc-option>Option 5</mdc-option>
+          <mdc-option>Option 6</mdc-option>
+        </mdc-select>
+        </div>
+      </mdc-popover>
+    </div>
+  `,
 };
