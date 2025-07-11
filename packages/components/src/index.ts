@@ -66,6 +66,7 @@ import Toggle from './components/toggle';
 import ToggleTip from './components/toggletip';
 import Tooltip from './components/tooltip';
 import VirtualizedList from './components/virtualizedlist';
+import AccordionItem from './components/accordionitem';
 
 // Types Imports
 import type { BadgeType } from './components/badge/badge.types';
@@ -89,6 +90,7 @@ import { SKELETON_VARIANTS } from './components/skeleton/skeleton.constants';
 
 // Components Exports
 export {
+  AccordionItem,
   AlertChip,
   Animation,
   Appheader,
