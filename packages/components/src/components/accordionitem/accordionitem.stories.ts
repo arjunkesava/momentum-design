@@ -3,12 +3,16 @@ import '.';
 import { html } from 'lit';
 
 import { classArgType, styleArgType } from '../../../config/storybook/commonArgTypes';
-
-import { VARIANT } from './accordionitem.constants';
+import { SIZE } from '../accordion/accordion.constants';
 
 const render = (args: Args) =>
   html`<div style="width: 25rem;">
-    <mdc-accordionitem header-text=${args['header-text']} ?visible=${args.visible} variant=${args.variant}>
+    <mdc-accordionitem
+      header-text=${args['header-text']}
+      ?visible=${args.visible}
+      variant=${args.variant}
+      size=${args.size}
+    >
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -33,9 +37,9 @@ const meta: Meta = {
     'header-text': {
       control: 'text',
     },
-    variant: {
+    size: {
       control: 'select',
-      options: Object.values(VARIANT),
+      options: Object.values(SIZE),
     },
   },
 };
@@ -48,6 +52,6 @@ export const Example: StoryObj = {
     style: 'margin-top: 20px;',
     'header-text': 'Heading',
     visible: true,
-    variant: VARIANT.DEFAULT,
+    size: SIZE.SMALL,
   },
 };

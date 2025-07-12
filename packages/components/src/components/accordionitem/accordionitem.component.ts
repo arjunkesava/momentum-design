@@ -5,10 +5,10 @@ import { Component } from '../../models';
 import { BUTTON_VARIANTS } from '../button/button.constants';
 import { TYPE, VALID_TEXT_TAGS } from '../text/text.constants';
 import { ROLE } from '../../utils/roles';
+import { Size } from '../accordion/accordion.types';
 
 import styles from './accordionitem.styles';
 import { DEFAULTS, ICON_NAME } from './accordionitem.constants';
-import type { Variant } from './accordionitem.types';
 
 /**
  * accordionitem component, which ...
@@ -35,10 +35,10 @@ class AccordionItem extends Component {
   @property({ type: String, reflect: true, attribute: 'header-text' }) headerText?: string;
 
   /**
-   * The variant of the accordion item.
-   * @default 'default'
+   * The size of the accordion item.
+   * @default 'small'
    */
-  @property({ type: String, reflect: true }) variant: Variant = DEFAULTS.VARIANT;
+  @property({ type: String, reflect: true }) size: Size = DEFAULTS.SIZE;
 
   override connectedCallback(): void {
     super.connectedCallback();

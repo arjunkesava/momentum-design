@@ -1,8 +1,13 @@
-import { CSSResult, html } from 'lit';
+import type { CSSResult, PropertyValues } from 'lit';
+import { html } from 'lit';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import { Component } from '../../models';
+import { TAG_NAME as ACCORDIONITEM_TAGNAME } from '../accordionitem/accordionitem.constants';
 
 import styles from './accordion.styles';
+import { DEFAULTS } from './accordion.constants';
+import type { Size, Variant } from './accordion.types';
 
 /**
  * accordion component, which ...
@@ -16,9 +21,55 @@ import styles from './accordion.styles';
  * @cssproperty --custom-property-name - Description of the CSS custom property
  */
 class Accordion extends Component {
+  /**
+   * If true, multiple accordion items can be expanded at the same time.
+   *
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'allow-multiple' }) allowMultiple = false;
+
+  /**
+   * The variant of the accordion.
+   * @default 'stacked'
+   */
+  @property({ type: String, reflect: true }) variant: Variant = DEFAULTS.VARIANT;
+
+  /**
+   * The size of the accordion.
+   * @default 'small'
+   */
+  @property({ type: String, reflect: true }) size: Size = DEFAULTS.SIZE;
+
+  /** @internal */
+  @queryAssignedElements({ selector: ACCORDIONITEM_TAGNAME })
+  accordionItems!: Array<HTMLElement>;
+
+  // constructor() {
+  //   super();
+  //   this.addEventListener('keydown', this.handleKeyDown);
+  //   this.addEventListener('click', this.handleMouseClick);
+  // }
+
+  // private handleKeyDown(event: KeyboardEvent) {
+  //   console.log(event);
+  // }
+
+  // private handleMouseClick(event: MouseEvent) {
+  //   console.log(event);
+  // }
+
+  override updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('size')) {
+      this.accordionItems.forEach(accordionItem => {
+        accordionItem.setAttribute('size', this.size);
+      });
+    }
+  }
+
   public override render() {
-    return html`<p>This is a dummy accordion component!</p>
-      <slot></slot>`;
+    return html` <slot></slot> `;
   }
 
   public static override styles: Array<CSSResult> = [...Component.styles, ...styles];
