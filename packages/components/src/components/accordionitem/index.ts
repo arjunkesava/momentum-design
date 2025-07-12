@@ -1,3 +1,5 @@
+import '../text';
+import '../button';
 import AccordionItem from './accordionitem.component';
 import { TAG_NAME } from './accordionitem.constants';
 
