@@ -26,6 +26,18 @@ const styles = [
       user-select: none;
     }
 
+    :host::part(body-section) {
+      width: 100%;
+    }
+
+    :host(:not([visible]))::part(header-section) {
+      border-radius: 0.5rem;
+    }
+
+    :host([visible])::part(header-section) {
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+
     :host::part(header-section):hover {
       background-color: var(--mdc-accordionitem-hover-color);
     }

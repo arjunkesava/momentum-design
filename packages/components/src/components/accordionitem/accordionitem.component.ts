@@ -2,15 +2,15 @@ import { CSSResult, html, nothing, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { Component } from '../../models';
-import { BUTTON_VARIANTS } from '../button/button.constants';
-import { TYPE, VALID_TEXT_TAGS } from '../text/text.constants';
+import { KEYS } from '../../utils/keys';
+import { DisabledMixin } from '../../utils/mixins/DisabledMixin';
 import { ROLE } from '../../utils/roles';
 import { Size } from '../accordion/accordion.types';
-import { DisabledMixin } from '../../utils/mixins/DisabledMixin';
-import { KEYS } from '../../utils/keys';
+import { BUTTON_VARIANTS } from '../button/button.constants';
+import { TYPE, VALID_TEXT_TAGS } from '../text/text.constants';
 
-import styles from './accordionitem.styles';
 import { DEFAULTS, ICON_NAME } from './accordionitem.constants';
+import styles from './accordionitem.styles';
 
 /**
  * accordionitem component, which ...
@@ -43,6 +43,7 @@ class AccordionItem extends DisabledMixin(Component) {
   @property({ type: String, reflect: true }) size: Size = DEFAULTS.SIZE;
 
   private handleHeaderClick(): void {
+    console.log('header clicked');
     this.visible = !this.visible;
     // const event = new CustomEvent('accordion-item-header-clicked', {
     //   bubbles: true,
@@ -65,6 +66,7 @@ class AccordionItem extends DisabledMixin(Component) {
         @click="${this.handleHeaderClick}"
         @keydown="${this.handleKeyDown}"
         role="${ROLE.HEADING}"
+        tabindex="${this.disabled ? -1 : 0}"
       >
         <div part="leading">
           <mdc-text type="${TYPE.BODY_LARGE_REGULAR}" tagname=${VALID_TEXT_TAGS.DIV}>${this.headerText}</mdc-text>
@@ -74,6 +76,8 @@ class AccordionItem extends DisabledMixin(Component) {
             variant="${BUTTON_VARIANTS.TERTIARY}"
             prefix-icon=${this.visible ? ICON_NAME.ARROW_UP : ICON_NAME.ARROW_DOWN}
             aria-expanded="${this.visible}"
+            tabindex="-1"
+            ?disabled="${this.disabled}"
           ></mdc-button>
         </div>
       </div>

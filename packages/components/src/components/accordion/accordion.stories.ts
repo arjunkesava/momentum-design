@@ -2,7 +2,9 @@ import type { Meta, StoryObj, Args } from '@storybook/web-components';
 import '.';
 import { html } from 'lit';
 import '../accordionitem';
+import '../checkbox';
 import '../button';
+import '../input';
 
 import { classArgType, styleArgType } from '../../../config/storybook/commonArgTypes';
 
@@ -64,10 +66,56 @@ export default meta;
 
 export const Example: StoryObj = {
   args: {
-    class: 'custom-classname',
-    style: 'margin-top: 20px;',
     variant: VARIANT.STACKED,
     size: SIZE.SMALL,
     'allow-multiple': true,
   },
+};
+
+export const ContainedAccordion: StoryObj = {
+  args: {
+    variant: VARIANT.CONTAINED,
+    size: SIZE.SMALL,
+    'allow-multiple': true,
+  },
+  render: args => html`
+    <mdc-accordion
+      variant="${args.variant}"
+      size="${args.size}"
+      ?allow-multiple="${args['allow-multiple']}"
+      style="width: 20rem;"
+    >
+      <mdc-accordionitem header-text="Brand" visible>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <mdc-checkbox checked label="Apple"></mdc-checkbox>
+          <mdc-checkbox label="Samsung"></mdc-checkbox>
+          <mdc-checkbox label="Google"></mdc-checkbox>
+          <mdc-checkbox label="Xiaomi"></mdc-checkbox>
+        </div>
+      </mdc-accordionitem>
+      <mdc-accordionitem header-text="RAM" disabled>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <mdc-checkbox label="4 GB"></mdc-checkbox>
+          <mdc-checkbox label="8 GB"></mdc-checkbox>
+          <mdc-checkbox label="12 GB"></mdc-checkbox>
+        </div>
+      </mdc-accordionitem>
+      <mdc-accordionitem header-text="Network Type">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <mdc-checkbox label="3G"></mdc-checkbox>
+          <mdc-checkbox label="4G"></mdc-checkbox>
+          <mdc-checkbox label="5G"></mdc-checkbox>
+        </div>
+      </mdc-accordionitem>
+      <mdc-accordionitem header-text="Discount">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <mdc-checkbox label="50% or more"></mdc-checkbox>
+          <mdc-checkbox label="40% or more"></mdc-checkbox>
+          <mdc-checkbox label="30% or more"></mdc-checkbox>
+          <mdc-checkbox label="20% or more"></mdc-checkbox>
+          <mdc-checkbox label="10% or more"></mdc-checkbox>
+        </div>
+      </mdc-accordionitem>
+    </mdc-accordion>
+  `,
 };
