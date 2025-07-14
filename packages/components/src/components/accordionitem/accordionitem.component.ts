@@ -6,6 +6,8 @@ import { BUTTON_VARIANTS } from '../button/button.constants';
 import { TYPE, VALID_TEXT_TAGS } from '../text/text.constants';
 import { ROLE } from '../../utils/roles';
 import { Size } from '../accordion/accordion.types';
+import { DisabledMixin } from '../../utils/mixins/DisabledMixin';
+import { KEYS } from '../../utils/keys';
 
 import styles from './accordionitem.styles';
 import { DEFAULTS, ICON_NAME } from './accordionitem.constants';
@@ -22,7 +24,7 @@ import { DEFAULTS, ICON_NAME } from './accordionitem.constants';
  *
  * @event click - (React: onClick) This event is a Click Event, update the description
  */
-class AccordionItem extends Component {
+class AccordionItem extends DisabledMixin(Component) {
   /**
    * The visibility of the accordion item.
    * @default false
@@ -40,24 +42,36 @@ class AccordionItem extends Component {
    */
   @property({ type: String, reflect: true }) size: Size = DEFAULTS.SIZE;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   private handleHeaderClick(): void {
     this.visible = !this.visible;
+    // const event = new CustomEvent('accordion-item-header-clicked', {
+    //   bubbles: true,
+    //   composed: true,
+    // });
+    // this.dispatchEvent(event);
+  }
+
+  private handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === KEYS.ENTER || event.key === KEYS.SPACE) {
+      this.handleHeaderClick();
+    }
   }
 
   private renderHeader(): TemplateResult {
     return html`
-      <div part="header-section" @click="${this.handleHeaderClick}" role="${ROLE.HEADING}">
+      <div
+        part="header-section"
+        class="mdc-focus-ring"
+        @click="${this.handleHeaderClick}"
+        @keydown="${this.handleKeyDown}"
+        role="${ROLE.HEADING}"
+      >
         <div part="leading">
           <mdc-text type="${TYPE.BODY_LARGE_REGULAR}" tagname=${VALID_TEXT_TAGS.DIV}>${this.headerText}</mdc-text>
         </div>
         <div part="trailing">
           <mdc-button
             variant="${BUTTON_VARIANTS.TERTIARY}"
-            size="32"
             prefix-icon=${this.visible ? ICON_NAME.ARROW_UP : ICON_NAME.ARROW_DOWN}
             aria-expanded="${this.visible}"
           ></mdc-button>

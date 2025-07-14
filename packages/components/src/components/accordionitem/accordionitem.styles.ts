@@ -1,12 +1,15 @@
 import { css } from 'lit';
 
-import { hostFitContentStyles } from '../../utils/styles';
+import { hostFitContentStyles, hostFocusRingStyles } from '../../utils/styles';
 
 const styles = [
   hostFitContentStyles,
   css`
     :host {
       --mdc-accordionitem-border-color: var(--mds-color-theme-outline-secondary-normal);
+      --mdc-accordionitem-hover-color: var(--mds-color-theme-background-primary-hover);
+      --mdc-accordionitem-active-color: var(--mds-color-theme-background-primary-active);
+      --mdc-accordionitem-disabled-color: var(--mds-color-theme-text-primary-disabled);
 
       display: flex;
       flex-direction: column;
@@ -19,6 +22,25 @@ const styles = [
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    :host::part(header-section):hover {
+      background-color: var(--mdc-accordionitem-hover-color);
+    }
+
+    :host::part(header-section):active {
+      background-color: var(--mdc-accordionitem-active-color);
+    }
+
+    :host([disabled])::part(header-section) {
+      color: var(--mdc-accordionitem-disabled-color);
+    }
+
+    :host([disabled])::part(header-section):active,
+    :host([disabled])::part(header-section):hover {
+      background-color: unset;
     }
 
     :host([visible])::part(header-section) {
@@ -35,6 +57,7 @@ const styles = [
       padding: 1.5rem;
     }
   `,
+  ...hostFocusRingStyles(true),
 ];
 
 export default styles;

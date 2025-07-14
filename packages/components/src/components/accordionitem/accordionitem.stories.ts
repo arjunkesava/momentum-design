@@ -10,6 +10,7 @@ const render = (args: Args) =>
     <mdc-accordionitem
       header-text=${args['header-text']}
       ?visible=${args.visible}
+      ?disabled=${args.disabled}
       variant=${args.variant}
       size=${args.size}
     >
@@ -41,6 +42,9 @@ const meta: Meta = {
       control: 'select',
       options: Object.values(SIZE),
     },
+    disabled: {
+      control: 'boolean',
+    },
   },
 };
 
@@ -53,5 +57,6 @@ export const Example: StoryObj = {
     'header-text': 'Heading',
     visible: true,
     size: SIZE.SMALL,
+    disabled: false,
   },
 };

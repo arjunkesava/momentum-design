@@ -4,6 +4,7 @@ import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import { Component } from '../../models';
 import { TAG_NAME as ACCORDIONITEM_TAGNAME } from '../accordionitem/accordionitem.constants';
+import { KEYS } from '../../utils/keys';
 
 import styles from './accordion.styles';
 import { DEFAULTS } from './accordion.constants';
@@ -44,19 +45,31 @@ class Accordion extends Component {
   @queryAssignedElements({ selector: ACCORDIONITEM_TAGNAME })
   accordionItems!: Array<HTMLElement>;
 
-  // constructor() {
-  //   super();
-  //   this.addEventListener('keydown', this.handleKeyDown);
-  //   this.addEventListener('click', this.handleMouseClick);
-  // }
+  constructor() {
+    super();
+    // TODO: move this logic, to the accordionitem component
+    this.addEventListener('keydown', this.handleKeyDown);
+    this.addEventListener('click', this.handleMouseClick);
+  }
 
-  // private handleKeyDown(event: KeyboardEvent) {
-  //   console.log(event);
-  // }
+  private handleKeyDown(event: KeyboardEvent) {
+    if (event.key === KEYS.ENTER || event.key === KEYS.SPACE) {
+      this.handleAccordionItemClick(event.target as HTMLElement);
+    }
+  }
 
-  // private handleMouseClick(event: MouseEvent) {
-  //   console.log(event);
-  // }
+  private handleMouseClick(event: MouseEvent) {
+    this.handleAccordionItemClick(event.target as HTMLElement);
+  }
+
+  private handleAccordionItemClick(target: HTMLElement) {
+    if (this.allowMultiple) return;
+    this.accordionItems.forEach(accordionItem => {
+      if (accordionItem !== target && accordionItem.hasAttribute('visible')) {
+        accordionItem.toggleAttribute('visible');
+      }
+    });
+  }
 
   override updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
