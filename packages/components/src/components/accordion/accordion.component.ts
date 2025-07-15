@@ -16,9 +16,7 @@ import type { Size, Variant } from './accordion.types';
  *
  * @slot default - This is a default/unnamed slot
  *
- * @event click - (React: onClick) This event is a Click Event, update the description
- *
- * @cssproperty --custom-property-name - Description of the CSS custom property
+ * @event header-click - (React: onClick) This event is a Click Event, update the description
  */
 class Accordion extends Component {
   /**
@@ -40,35 +38,35 @@ class Accordion extends Component {
    */
   @property({ type: String, reflect: true }) size: Size = DEFAULTS.SIZE;
 
-  /** @internal */
+  /**
+   * A list of accordion item elements assigned to the default slot.
+   *
+   * @internal
+   */
   @queryAssignedElements({ selector: ACCORDIONITEM_TAGNAME })
   accordionItems!: Array<HTMLElement>;
 
-  // constructor() {
-  //   super();
-  //   // TODO: move this logic, to the accordionitem component
-  //   this.addEventListener('keydown', this.handleKeyDown);
-  //   this.addEventListener('click', this.handleMouseClick);
-  // }
+  constructor() {
+    super();
+    this.addEventListener('header-click', (event: Event) => this.onAccordionItemHeaderClick(event));
+  }
 
-  // private handleKeyDown(event: KeyboardEvent) {
-  //   if (event.key === KEYS.ENTER || event.key === KEYS.SPACE) {
-  //     this.handleAccordionItemClick(event.target as HTMLElement);
-  //   }
-  // }
-
-  // private handleMouseClick(event: MouseEvent) {
-  //   this.handleAccordionItemClick(event.target as HTMLElement);
-  // }
-
-  // private handleAccordionItemClick(target: HTMLElement) {
-  //   if (this.allowMultiple) return;
-  //   this.accordionItems.forEach(accordionItem => {
-  //     if (accordionItem !== target && accordionItem.hasAttribute('visible')) {
-  //       accordionItem.toggleAttribute('visible');
-  //     }
-  //   });
-  // }
+  /**
+   * Handles the accordion item header click event.
+   * Closes other accordion items if allowMultiple is false.
+   *
+   * @param event - The event object from the click event.
+   */
+  private onAccordionItemHeaderClick(event: Event) {
+    if (this.allowMultiple) {
+      return;
+    }
+    this.accordionItems.forEach(accordionItem => {
+      if (accordionItem !== event.target && accordionItem.hasAttribute('visible')) {
+        accordionItem.toggleAttribute('visible');
+      }
+    });
+  }
 
   override updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
@@ -81,7 +79,7 @@ class Accordion extends Component {
   }
 
   public override render() {
-    return html` <slot></slot> `;
+    return html` <slot></slot>`;
   }
 
   public static override styles: Array<CSSResult> = [...Component.styles, ...styles];

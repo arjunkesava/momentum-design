@@ -68,6 +68,11 @@ class AccordionItem extends DisabledMixin(Component) {
 
   private handleHeaderClick(): void {
     this.visible = !this.visible;
+    const event = new CustomEvent('header-click', {
+      bubbles: true,
+      cancelable: true,
+    });
+    this.dispatchEvent(event);
   }
 
   private handleKeyDown(event: KeyboardEvent): void {
@@ -123,20 +128,22 @@ class AccordionItem extends DisabledMixin(Component) {
     `;
   }
 
+  private renderBody(): TemplateResult | typeof nothing {
+    if (this.visible) {
+      return html`<div
+        id="${this.bodySectionId}"
+        aria-labelledby="${this.headSectionId}"
+        part="body-section"
+        role="${ROLE.REGION}"
+      >
+        <slot></slot>
+      </div>`;
+    }
+    return nothing;
+  }
+
   public override render() {
-    return html`
-      ${this.renderHeader()}
-      ${this.visible
-        ? html`<div
-            id="${this.bodySectionId}"
-            aria-labelledby="${this.headSectionId}"
-            part="body-section"
-            role="${ROLE.REGION}"
-          >
-            <slot></slot>
-          </div>`
-        : nothing}
-    `;
+    return html` ${this.renderHeader()} ${this.renderBody()} `;
   }
 
   public static override styles: Array<CSSResult> = [...Component.styles, ...styles];

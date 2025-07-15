@@ -1,4 +1,5 @@
 import type { Args, Meta, StoryObj } from '@storybook/web-components';
+import { action } from '@storybook/addon-actions';
 import '.';
 import { html } from 'lit';
 import '../badge';
@@ -16,6 +17,7 @@ const defaultChildren = `Lorem ipsum dolor sit amet, consectetur adipiscing elit
 const render = (args: Args) =>
   html`<div style="width: 25rem;">
     <mdc-accordionitem
+      @header-click="${action('header-click')}"
       ?disabled=${args.disabled}
       ?visible=${args.visible}
       header-text=${args['header-text']}

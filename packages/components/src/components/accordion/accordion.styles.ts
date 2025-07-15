@@ -8,7 +8,7 @@ const styles = css`
     flex-direction: column;
   }
   :host([variant='contained']) {
-    border: 1px dashed var(--mdc-accordion-border-color);
+    border: 1px solid var(--mdc-accordion-border-color);
     border-radius: 0.5rem;
   }
   :host([variant='borderless']) {
