@@ -85,22 +85,22 @@ export const ContainedAccordion: StoryObj = {
       ?allow-multiple="${args['allow-multiple']}"
       style="width: 20rem;"
     >
-      <mdc-accordionitem header-text="Brand" visible>
+      <mdc-accordionitem header-text="Brand" visible leading-label="Popular" leading-icon="block-quote-bold">
         <div style="display: flex; flex-direction: column; gap: 1rem;">
           <mdc-checkbox checked label="Apple"></mdc-checkbox>
           <mdc-checkbox label="Samsung"></mdc-checkbox>
           <mdc-checkbox label="Google"></mdc-checkbox>
-          <mdc-checkbox label="Xiaomi"></mdc-checkbox>
+          <mdc-checkbox label="Nokia"></mdc-checkbox>
         </div>
       </mdc-accordionitem>
-      <mdc-accordionitem header-text="RAM" disabled>
+      <mdc-accordionitem header-text="RAM">
         <div style="display: flex; flex-direction: column; gap: 1rem;">
           <mdc-checkbox label="4 GB"></mdc-checkbox>
           <mdc-checkbox label="8 GB"></mdc-checkbox>
           <mdc-checkbox label="12 GB"></mdc-checkbox>
         </div>
       </mdc-accordionitem>
-      <mdc-accordionitem header-text="Network Type">
+      <mdc-accordionitem header-text="Network Type" disabled>
         <div style="display: flex; flex-direction: column; gap: 1rem;">
           <mdc-checkbox label="3G"></mdc-checkbox>
           <mdc-checkbox label="4G"></mdc-checkbox>

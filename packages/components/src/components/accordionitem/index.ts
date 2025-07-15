@@ -1,5 +1,6 @@
 import '../text';
-import '../button';
+import '../chip';
+import '../icon';
 import AccordionItem from './accordionitem.component';
 import { TAG_NAME } from './accordionitem.constants';
 

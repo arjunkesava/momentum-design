@@ -68,6 +68,14 @@ const styles = [
     :host([size='large'])::part(body-section) {
       padding: 1.5rem;
     }
+
+    :host::part(leading-header),
+    :host::part(trailing-header) {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      align-items: center;
+    }
   `,
   ...hostFocusRingStyles(true),
 ];
