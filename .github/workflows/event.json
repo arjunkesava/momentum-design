@@ -1,0 +1,39 @@
+{
+    "pull_request": {
+        "title": "doing something great",
+        "body": "<!--────────────────────────────────────────\r\nChecklist before submitting a Pull Request, please ensure you've done the following:\r\n- ✅ Set the \"validated\" label on this Pull Request if you have the permissions to do so.\r\n\r\n- 📝 Write a proper PR title and fill out the description below\r\n\r\n- 📖 Read the Contributing guide: \r\nhttps://github.com/momentum-design/momentum-design/blob/main/CONTRIBUTING.md\r\n\r\n- 🏗️ When making changes to components, follow these conventions: \r\nhttps://github.com/momentum-design/momentum-design/tree/main/packages/components/conventions\r\n\r\nNOTE: Pull Requests from forked repositories will need to be \"validated\" by a Momentum Team member before any CI builds will run. Once your PR is \"validated\", it will be allowed to run subsequent builds without manual approval.\r\n────────────────────────────────────────-->\r\n\r\n### Description\r\n\r\n*Potential breaking change:*\r\n- [Banner] - Banner sizing changed, in particular the height. Might cause layout / styling changes for consumers\r\n\r\n*Fixes:*\r\n- [Banner] - Banner Leading Text font size changed & small adjustments to padding to confirm with design specs\r\n- [Banner] - Added `--mdc-banner-border-width` css custom property for more flexibility\r\n",
+        "head": {
+            "repo": {
+                "full_name": "test/repo"
+            }
+        },
+        "base": {
+            "repo": {
+                "full_name": "test/repo"
+            }
+        },
+        "labels": [
+            {
+                "id": 208045946,
+                "node_id": "MDU6TGFiZWwyMDgwNDU5NDY=",
+                "url": "https://api.github.com/repos/octocat/Hello-World/labels/bug",
+                "name": "bug",
+                "description": "Something isn't working",
+                "color": "f29513",
+                "default": true
+            },
+            {
+                "id": 208045947,
+                "node_id": "MDU6TGFiZWwyMDgwNDU5NDc=",
+                "url": "https://api.github.com/repos/octocat/Hello-World/labels/enhancement",
+                "name": "enhancement",
+                "description": "New feature or request",
+                "color": "a2eeef",
+                "default": false
+            }
+        ]
+    },
+    "repository": {
+        "full_name": "test/repo"
+    }
+}
