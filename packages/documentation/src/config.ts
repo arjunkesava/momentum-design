@@ -21,6 +21,7 @@ export type Frontmatter = {
   dir?: 'ltr' | 'rtl';
   ogLocale?: string;
   lang?: string;
+  background?: string;
 };
 
 export const KNOWN_LANGUAGES = {
@@ -73,16 +74,12 @@ export type Menu = Record<
 
 export const MAIN_MENU: Menu = {
   en: {
-    Home: {
-      index: 'en',
+    GettingStarted: {
+      index: 'en/getting-started',
       submenu: [],
     },
-    Tokens: {
-      index: 'en/tokens',
-      submenu: [],
-    },
-    Assets: {
-      index: 'en/assets',
+    Resources: {
+      index: 'en/resources',
       submenu: [],
     },
     Components: {

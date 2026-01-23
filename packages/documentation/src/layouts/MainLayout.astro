@@ -1,21 +1,26 @@
 ---
-import HeadCommon from '../components/HeadCommon.astro';
-import HeadSEO from '../components/HeadSEO.astro';
-import Header from '../components/Header/Header.astro';
-import * as CONFIG from '../config';
-import Footer from '../components/Footer/Footer.astro';
+import HeadCommon from "../components/HeadCommon.astro";
+import HeadSEO from "../components/HeadSEO.astro";
+import Header from "../components/Header/Header.astro";
+import * as CONFIG from "../config";
+import Footer from "../components/Footer/Footer.astro";
 
 type Props = {
-	frontmatter: CONFIG.Frontmatter;
+  frontmatter: CONFIG.Frontmatter;
 };
 
 const { frontmatter } = Astro.props as Props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPage = Astro.url.pathname;
-const currentFile = `src/pages${currentPage.replace(/\/$/, '')}.md`;
+const currentFile = `src/pages${currentPage.replace(/\/$/, "")}.md`;
 ---
 
-<html dir={frontmatter.dir ?? 'ltr'} lang={frontmatter.lang ?? 'en-us'} class="initial">
+<script>
+  import "@momentum-design/components/dist/components/themeprovider/index.js";
+  import "@momentum-design/components/dist/components/iconprovider/index.js";
+</script>
+
+<html dir={frontmatter.dir ?? "ltr"} lang={frontmatter.lang ?? "en-us"} class="initial">
   <head>
     <HeadCommon />
     <HeadSEO frontmatter={frontmatter} canonicalUrl={canonicalURL} />
@@ -23,33 +28,55 @@ const currentFile = `src/pages${currentPage.replace(/\/$/, '')}.md`;
       {frontmatter.title ? `${frontmatter.title} 🚀 ${CONFIG.SITE.title}` : CONFIG.SITE.title}
     </title>
     <style>
-			body {
-        position: fixed;
-        height: 100%;
-				width: 100%;
-				display: grid;
-				grid-template-rows: var(--theme-navbar-height) 1fr;
-				--gutter: 0.5rem;
-				--doc-padding: 2rem;
-			}
-
-			.layout {
-				padding: 0 1rem;
-				display: grid;
-				margin: 0 auto;
-				width: 100%;
-        overflow-y: auto;
-			}
-
+      body {
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+      }
+      .layout {
+        width: 100%;
+        flex: 1;
+      }
+      .scroll-wrapper {
+        overflow-y: scroll;
+      }
+      .background-wrapper {
+        background-attachment: scroll;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        /* To place the footer always at the bottom */
+        min-height: 100vh;
+      }
     </style>
   </head>
-  <body>
-    <Header />
-    <main class="layout">
-      <div id="grid-main">
-        <slot />
-      </div>
-    </main>
-    <Footer path={currentFile} />
+  <body class="mds-typography mds-effect">
+    <mdc-themeprovider themeclass="mds-theme-stable-darkWebex" style="display: contents;">
+      <mdc-iconprovider
+        icon-set="custom-icons"
+        url="./icons"
+        cache-name="momentum-website-icons"
+        cache-strategy="web-cache-api"
+      >
+        <div class="scroll-wrapper">
+          <div
+            class="background-wrapper container"
+            style={`background-image: url(${frontmatter.background || "/default-background.svg"});`}
+          >
+            <Header />
+            <main class="layout">
+              <div id="grid-main">
+                <slot />
+              </div>
+            </main>
+            <Footer path={currentFile} />
+          </div>
+        </div>
+      </mdc-iconprovider>
+    </mdc-themeprovider>
   </body>
 </html>
